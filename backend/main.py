@@ -4,6 +4,8 @@ from database import engine
 from models import Base
 from routes_users import router as users_router
 from routes_scans import router as scans_router
+from routes_monitor import router as monitor_router
+from scheduler import start_scheduler
 
 
 Base.metadata.create_all(bind=engine)
@@ -20,6 +22,10 @@ app.add_middleware(
 
 app.include_router(users_router)
 app.include_router(scans_router)
+app.include_router(monitor_router)
 @app.get("/")
 def root():
     return {"status": "ok", "message": "NetDiagAI backend fonctionne !"}
+@app.on_event("startup")
+def startup_event():
+    start_scheduler()

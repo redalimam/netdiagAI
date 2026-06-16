@@ -24,3 +24,23 @@ class Scan(Base):
     created    = Column(DateTime, default=datetime.utcnow)
     user_id    = Column(Integer, ForeignKey("users.id"))
     owner      = relationship("User", back_populates="scans")
+    auto     = Column(String, default=False)  # True si scan automatique
+
+class MonitoredTarget(Base):
+    __tablename__ = "monitored_targets"
+    id       = Column(Integer, primary_key=True, index=True)
+    target   = Column(String)       # ex: google.com
+    email    = Column(String)       # email pour les alertes
+    active   = Column(String, default=True)
+    user_id  = Column(Integer, ForeignKey("users.id"))
+    created  = Column(DateTime, default=datetime.utcnow)
+
+class Alert(Base):
+    __tablename__ = "alerts"
+    id        = Column(Integer, primary_key=True, index=True)
+    target    = Column(String)
+    message   = Column(Text)
+    severity  = Column(String)   # faible / moyenne / critique
+    sent      = Column(String, default=False)
+    created   = Column(DateTime, default=datetime.utcnow)
+    user_id   = Column(Integer, ForeignKey("users.id"))
