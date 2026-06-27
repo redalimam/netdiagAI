@@ -15,10 +15,8 @@ app = FastAPI(title="NetDiagAI API")
 # Autoriser le frontend React à parler au backend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "https://netdiag-ai.vercel.app"
-    ],
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
