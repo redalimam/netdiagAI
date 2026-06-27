@@ -22,7 +22,7 @@ class Scan(Base):
     result     = Column(Text)     # résultat JSON du scan
     diagnosis  = Column(Text)     # rapport IA
     created    = Column(DateTime, default=datetime.utcnow)
-    user_id    = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     owner      = relationship("User", back_populates="scans")
     auto     = Column(String, default=False)  # True si scan automatique
 
@@ -32,7 +32,7 @@ class MonitoredTarget(Base):
     target   = Column(String)       # ex: google.com
     email    = Column(String)       # email pour les alertes
     active   = Column(Boolean, default=True)
-    user_id  = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
     created  = Column(DateTime, default=datetime.utcnow)
 
 class Alert(Base):
@@ -43,4 +43,4 @@ class Alert(Base):
     severity  = Column(String)   # faible / moyenne / critique
     sent     = Column(Boolean, default=False)
     created   = Column(DateTime, default=datetime.utcnow)
-    user_id   = Column(Integer, ForeignKey("users.id"))
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=True)

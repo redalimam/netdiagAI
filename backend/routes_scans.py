@@ -27,7 +27,8 @@ def launch_scan(data: ScanRequest, db: Session = Depends(get_db)):
         target=data.target,
         result=json.dumps(scan_result),
         diagnosis=json.dumps(diagnosis),
-        user_id=1
+        user_id=None,
+        auto=False
     )
     db.add(scan)
     db.commit()
