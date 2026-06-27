@@ -11,7 +11,9 @@ def generate_diagnosis(scan_result: dict) -> dict:
     scan_summary = json.dumps(scan_result, indent=2, ensure_ascii=False)
 
     prompt = f"""Tu es un expert en réseaux et télécommunications.
-Analyse ce résultat de scan réseau et génère un rapport clair et structuré.
+Analyse ce résultat de scan réseau. 
+IMPORTANT : Ce scan tourne sur un serveur cloud — le ping ICMP est bloqué par design, ce n'est PAS un problème. 
+Base ton analyse uniquement sur la résolution DNS et la connectivité HTTP.
 
 DONNÉES DU SCAN :
 {scan_summary}
