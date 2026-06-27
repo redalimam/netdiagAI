@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey, Boolean
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -31,7 +31,7 @@ class MonitoredTarget(Base):
     id       = Column(Integer, primary_key=True, index=True)
     target   = Column(String)       # ex: google.com
     email    = Column(String)       # email pour les alertes
-    active   = Column(String, default=True)
+    active   = Column(Boolean, default=True)
     user_id  = Column(Integer, ForeignKey("users.id"))
     created  = Column(DateTime, default=datetime.utcnow)
 
@@ -41,6 +41,6 @@ class Alert(Base):
     target    = Column(String)
     message   = Column(Text)
     severity  = Column(String)   # faible / moyenne / critique
-    sent      = Column(String, default=False)
+    sent     = Column(Boolean, default=False)
     created   = Column(DateTime, default=datetime.utcnow)
     user_id   = Column(Integer, ForeignKey("users.id"))
